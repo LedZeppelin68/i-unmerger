@@ -78,8 +78,8 @@ namespace i_unmerger
                         long map_offset = Convert.ToInt64(file.Attributes["map"].Value);
                         string file_type = file.Attributes["type"].Value;
 
-                        BinaryWriter bw = new BinaryWriter(new FileStream(Path.Combine(working_dir, name), FileMode.Create));
-
+                        //BinaryWriter bw = new BinaryWriter(new FileStream(Path.Combine(working_dir, name), FileMode.Create));
+                        BinaryWriter bw = new BinaryWriter(new FileStream(Path.Combine(game_dir, name), FileMode.Create));
 
                         MD5 file_hash = MD5.Create();
 
