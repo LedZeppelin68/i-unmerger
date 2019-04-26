@@ -25,50 +25,50 @@ namespace i_unmerger
                 control_xml.Load(control_xml_path);
                 //control_xml.Load(Path.Combine(working_dir, "control.xml"));
 
-                    XmlNode form1_part = control_xml.DocumentElement.SelectSingleNode("partition/form1");
-                    XmlNode form2_part = control_xml.DocumentElement.SelectSingleNode("partition/form2");
-                    XmlNode cdda_part = control_xml.DocumentElement.SelectSingleNode("partition/cdda");
-                    XmlNode map_part = control_xml.DocumentElement.SelectSingleNode("partition/map");
+                XmlNode form1_part = control_xml.DocumentElement.SelectSingleNode("partition/form1");
+                XmlNode form2_part = control_xml.DocumentElement.SelectSingleNode("partition/form2");
+                XmlNode cdda_part = control_xml.DocumentElement.SelectSingleNode("partition/cdda");
+                XmlNode map_part = control_xml.DocumentElement.SelectSingleNode("partition/map");
 
-                    BinaryReader form1 = null;
-                    BinaryReader form2 = null;
-                    BinaryReader cdda = null;
-                    BinaryReader map = null;
+                BinaryReader form1 = null;
+                BinaryReader form2 = null;
+                BinaryReader cdda = null;
+                BinaryReader map = null;
 
-                    if (form1_part != null)
-                    {
-                        string part_name = form1_part.Attributes["name"].Value;
-                        form1 = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
-                    }
+                if (form1_part != null)
+                {
+                    string part_name = form1_part.Attributes["name"].Value;
+                    form1 = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
+                }
 
-                    if (form2_part != null)
-                    {
-                        string part_name = form2_part.Attributes["name"].Value;
-                        form2 = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
-                    }
+                if (form2_part != null)
+                {
+                    string part_name = form2_part.Attributes["name"].Value;
+                    form2 = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
+                }
 
-                    if (cdda_part != null)
-                    {
-                        string part_name = cdda_part.Attributes["name"].Value;
-                        cdda = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
-                    }
+                if (cdda_part != null)
+                {
+                    string part_name = cdda_part.Attributes["name"].Value;
+                    cdda = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
+                }
 
-                    if (map_part != null)
-                    {
-                        string part_name = map_part.Attributes["name"].Value;
-                        map = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
-                    }
+                if (map_part != null)
+                {
+                    string part_name = map_part.Attributes["name"].Value;
+                    map = new BinaryReader(new FileStream(Path.Combine(working_dir, part_name), FileMode.Open));
+                }
 
-                    XmlNodeList games = control_xml.DocumentElement.SelectNodes("game");
+                XmlNodeList games = control_xml.DocumentElement.SelectNodes("game");
 
-                    foreach (XmlNode game in games)
-                    {
-                        string game_dir = game.Attributes["name"].Value;
+                foreach (XmlNode game in games)
+                {
+                    string game_dir = game.Attributes["name"].Value;
                     game_dir = Path.Combine(working_dir, game_dir);
 
                     try { Directory.CreateDirectory(game_dir); } catch { };
 
-                        XmlNodeList files = game.SelectNodes("rom");
+                    XmlNodeList files = game.SelectNodes("rom");
 
                     foreach (XmlNode file in files)
                     {
@@ -299,12 +299,13 @@ namespace i_unmerger
                         if (calculated_hash == file_md5) Console.WriteLine(string.Format("tested: ok: {0}", name)); else Console.WriteLine(string.Format("tested: error: {0}", name));
                     }
 
+                }
                     if (form1_part != null) form1.Dispose();
                     if (form2_part != null) form2.Dispose();
                     if (map_part != null) map.Dispose();
 
-                    
-                }
+
+                
             }
         }
     }
